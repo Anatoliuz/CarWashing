@@ -1,26 +1,23 @@
 package com.interview.carwash.controller;
 
+import com.interview.carwash.dto.WaitingDto;
 import com.interview.carwash.dto.WashingCreateDto;
-import com.interview.carwash.dto.WashingCreateFormDto;
 import com.interview.carwash.service.OperationService;
 import com.interview.carwash.service.WashingService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/carwashing")
 @AllArgsConstructor
 public class UiController {
 
@@ -28,23 +25,45 @@ public class UiController {
     private final WashingService washingService;
     private final ModelMapper mapper;
 
-    @GetMapping
+    @GetMapping("/carwashing")
     public ModelAndView washing() {
         Map<String, Object> map = new HashMap<>();
         map.put("operations", operationService.getList(PageRequest.of(0, 20)));
-        map.put("washings", washingService.getList(PageRequest.of(0, 20)));
+        map.put("washings", washingService.getActualQueue());
+        map.put("formatter", DateTimeFormatter.ofPattern("dd/MM/uuuu hh:mm"));
         return new ModelAndView("washing", map);
     }
 
-    @PostMapping
+    @PostMapping("/carwashing")
     public ModelAndView post(WashingCreateDto dto) {
         Map<String, Object> map = new HashMap<>();
-       // var washing = washingService.create();
+        var washing = washingService.create(dto);
+        washingService.getQueue(washing.getId());
+        map.put("number", washing.getId());
 
-        map.put("operations", operationService.getList(PageRequest.of(0, 20)));
-        map.put("washings", washingService.getList(PageRequest.of(0, 20)));
+        return new ModelAndView("number", map);
+    }
 
-        return new ModelAndView("washing", map);
+    @GetMapping("/number")
+    public ModelAndView getNumber(@RequestParam Long washingId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("number", washingId);
+
+        return new ModelAndView("number", map);
+    }
+
+    @GetMapping("/queue")
+    public ModelAndView queue(@RequestParam(required = false) Long washingId) {
+        Map<String, Object> map = new HashMap<>();
+        if (washingId != null) {
+            WaitingDto waitingData = washingService.getWaitingData(washingId);
+            map.put("time", waitingData.getMinutesToWait());
+            map.put("numInQueue", waitingData.getNumInQueue());
+            map.put("queue", washingService.getQueue(washingId));
+            map.put("formatter", DateTimeFormatter.ofPattern("dd/MM/uuuu hh:mm"));
+        }
+        map.put("washingId", washingId);
+        return new ModelAndView("queue", map);
     }
 
 }

@@ -65,6 +65,20 @@ public class WashingServiceImpl implements WashingService {
     }
 
 
+    @Override
+    public List<Washing> getQueue(Long washingId) {
+        LocalDateTime now = LocalDateTime.now();
+        var washing = repository.findById(washingId)
+                .orElseThrow(WashingNotFound::new);
+        LocalDateTime startOfRequestedWashing = washing.getStartTime();
+        return repository.findWashingQueue(now, startOfRequestedWashing);
+    }
+
+    @Override
+    public List<Washing> getActualQueue() {
+        return repository.findActualQueue(LocalDateTime.now());
+    }
+
     private int getWashingTime(List<Operation> operations) {
         int minutes = 0;
         for (Operation op : operations) {

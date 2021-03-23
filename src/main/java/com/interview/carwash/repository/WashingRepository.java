@@ -21,8 +21,15 @@ public interface WashingRepository extends JpaRepository<Washing, Long> {
                     "and w.endTime <= :endTime"
     )
     List<Washing> findWashingQueue(
-            @Param("startTime")LocalDateTime start,
+            @Param("startTime") LocalDateTime start,
             @Param("endTime") LocalDateTime endTime
+    );
+
+    @Query(
+            value = "select w from Washing w where w.endTime > :time"
+    )
+    List<Washing> findActualQueue(
+            @Param("time") LocalDateTime time
     );
 
 }
