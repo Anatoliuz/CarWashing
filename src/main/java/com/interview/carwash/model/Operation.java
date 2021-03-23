@@ -19,6 +19,8 @@ public class Operation {
 
     private String name;
 
+    private String label;
+
     private int minutes;
 
 }

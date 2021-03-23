@@ -31,6 +31,7 @@ public class OperationServiceImpl implements OperationService {
     public Operation create(OperationCreateDto createDto) {
         Operation operation = new Operation();
         operation.setName(createDto.getName());
+        operation.setLabel(createDto.getLabel());
         operation.setMinutes(createDto.getMinutes());
         return repository.save(operation);
     }

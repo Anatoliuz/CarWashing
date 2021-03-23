@@ -4,19 +4,15 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
-@Data
 @Validated
-public class OperationCreateDto {
+@Data
+public class WashingCreateFormDto {
 
     @NotEmpty
-    private String name;
-
-    @NotEmpty
-    private String label;
-
-    @Positive
-    private int minutes;
+    @NotNull
+    private String operations;
 
 }
