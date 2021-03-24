@@ -13,5 +13,6 @@ http://localhost:8080/swagger-ui.html
 ## UI
 ```
 http://localhost:8080/carwashing
+Выбор услуг через cmd + mouse click
 ```
 
