@@ -18,7 +18,7 @@
         <h2>Ваш номер в очереди</h2>
         <h1>${number}</h1>
         <form action="/queue" method="get">
-            <input hidden value="${number}" name = "washingId">
+            <input hidden value="${number}" name="washingId">
             <button>Посмотреть очередь</button>
         </form>
         <h4>Автоматическое перенаправление через</h4><h4 id="seconds">5</h4><h4>секунд</h4>
