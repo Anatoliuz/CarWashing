@@ -1,9 +1,10 @@
 package com.interview.carwash.service;
 
 import com.interview.carwash.dto.OperationCreateDto;
-import com.interview.carwash.error.InvalidOperationName;
+import com.interview.carwash.error.OperationNotFound;
 import com.interview.carwash.model.Operation;
 import com.interview.carwash.repository.OperationRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class OperationServiceImpl implements OperationService {
 
     private final OperationRepository repository;
-
-    public OperationServiceImpl(OperationRepository repository) {
-        this.repository = repository;
-    }
 
     @Transactional(readOnly = true)
     @Override
@@ -41,9 +39,16 @@ public class OperationServiceImpl implements OperationService {
     public List<Operation> getAllByNames(List<String> names) {
         List<Operation> found = repository.findAllByNameIn(names);
         if (names.size() != found.size()) {
-            throw new InvalidOperationName();
+            throw new OperationNotFound();
         }
         return found;
+    }
+
+    @Transactional
+    @Override
+    public Operation getByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(OperationNotFound::new);
     }
 
 

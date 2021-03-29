@@ -18,12 +18,23 @@ create table carwash.operation
     minutes int
 );
 
-create table carwash.washing_operation
+create table carwash.operation_price
 (
-    washing_id   bigint references carwash.washing (id),
-    operation_id bigint references carwash.operation (id),
-    primary key (washing_id, operation_id)
+    id               bigserial primary key,
+    operation_id     bigint references carwash.operation (id),
+    price            int       not null,
+    create_date_time timestamp not null,
+    is_archived      bool
 );
+
+create table carwash.washing_operation_price
+(
+    washing_id         bigint references carwash.washing (id),
+    operation_price_id bigint references carwash.operation_price (id),
+    primary key (washing_id, operation_price_id)
+);
+
+
 insert into carwash.operation (name, label, minutes)
 values ('hand_wash', 'Ручная мойка', 10),
        ('wireless_wash', 'Бесконтактная мойка', 15),

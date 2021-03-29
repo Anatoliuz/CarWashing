@@ -3,9 +3,8 @@ package com.interview.carwash.dto;
 import lombok.Data;
 
 @Data
-public class WashingDto extends WashingCreateDto {
+public class OperationPriceDto extends OperationPriceCreateDto {
 
     private Long id;
-    private int price;
 
 }

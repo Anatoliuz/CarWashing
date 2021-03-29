@@ -4,6 +4,7 @@ import com.interview.carwash.dto.WaitingDto;
 import com.interview.carwash.dto.WashingCreateDto;
 import com.interview.carwash.dto.WashingDto;
 import com.interview.carwash.service.WashingService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,15 +22,11 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("api/washing")
+@AllArgsConstructor
 public class WashingController {
 
     private final WashingService service;
     private final ModelMapper mapper;
-
-    public WashingController(WashingService service, ModelMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
 
     @GetMapping
     public List<WashingDto> getList(@RequestParam(defaultValue = "0") int page,

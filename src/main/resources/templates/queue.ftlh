@@ -16,8 +16,9 @@
 <div class="history-page">
     <div class="form">
         <#if washingId??>
-            <h2>Вы ${numInQueue} в очереди</h2>
-            <h2>Осталось ждать ${time} минут</h2>
+            <h2>Вы ${washing.getNumInQueue()} в очереди</h2>
+            <h2>Осталось ждать ${washing.getMinutesToWait()} минут</h2>
+            <h2>Цена ${washing.getPrice()} руб</h2>
 
             <h2>Очередь перед вами</h2>
             <table>

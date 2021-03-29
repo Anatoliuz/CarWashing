@@ -14,4 +14,6 @@ public interface OperationService {
 
     List<Operation> getAllByNames(List<String> names);
 
+    Operation getByName(String name);
+
 }

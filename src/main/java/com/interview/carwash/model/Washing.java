@@ -42,10 +42,10 @@ public class Washing {
     @ManyToMany
     @JoinTable(
             schema = "carwash",
-            name = "washing_operation",
+            name = "washing_operation_price",
             joinColumns = @JoinColumn(name = "washing_id"),
-            inverseJoinColumns = @JoinColumn(name = "operation_id")
+            inverseJoinColumns = @JoinColumn(name = "operation_price_id")
     )
-    private List<Operation> operations;
+    private List<OperationPrice> operationsPrices;
 
 }

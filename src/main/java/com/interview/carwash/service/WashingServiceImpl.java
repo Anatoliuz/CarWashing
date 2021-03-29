@@ -4,6 +4,7 @@ import com.interview.carwash.dto.WaitingDto;
 import com.interview.carwash.dto.WashingCreateDto;
 import com.interview.carwash.error.WashingNotFound;
 import com.interview.carwash.model.Operation;
+import com.interview.carwash.model.OperationPrice;
 import com.interview.carwash.model.Washing;
 import com.interview.carwash.repository.WashingRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +23,7 @@ public class WashingServiceImpl implements WashingService {
 
     private final WashingRepository repository;
     private final OperationService service;
+    private final OperationPriceService operationPriceService;
 
     @Transactional(readOnly = true)
     @Override
@@ -34,9 +37,14 @@ public class WashingServiceImpl implements WashingService {
     public Washing create(WashingCreateDto createDto) {
         Washing washing = new Washing();
         List<String> names = createDto.getOperations();
-        List<Operation> operations = service.getAllByNames(names);
-        washing.setOperations(operations);
-        int minutes = getWashingTime(operations);
+
+        List<OperationPrice> operationPrices = operationPriceService.getByNames(names);
+        //TODO
+
+        int minutes = getWashingTime(operationPrices
+                .stream()
+                .map(OperationPrice::getOperation)
+                .collect(Collectors.toList()));
         LocalDateTime now = LocalDateTime.now();
 
         var nextWashStartTime = repository.findFirstByOrderByEndTimeDesc()
@@ -49,6 +57,7 @@ public class WashingServiceImpl implements WashingService {
                 nextWashStartTime.plusMinutes(minutes)
         );
         washing.setCreateDateTime(now);
+        washing.setOperationsPrices(operationPrices);
         return repository.save(washing);
     }
 
@@ -58,10 +67,15 @@ public class WashingServiceImpl implements WashingService {
 
         var washing = repository.findById(washingId)
                 .orElseThrow(WashingNotFound::new);
+        int price = washing.getOperationsPrices()
+                .stream()
+                .map(OperationPrice::getPrice)
+                .reduce(0, Integer::sum);
+
         LocalDateTime startOfRequestedWashing = washing.getStartTime();
         List<Washing> queue = repository.findWashingQueue(now, startOfRequestedWashing);
         long minutes = ChronoUnit.MINUTES.between(now, startOfRequestedWashing);
-        return new WaitingDto(minutes, queue.size() + 1);
+        return new WaitingDto(minutes, queue.size() + 1, price);
     }
 
 

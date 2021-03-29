@@ -15,6 +15,9 @@
 </div>
 <div class="history-page">
     <div class="form">
+        <h2>Цена</h2>
+        <h1>${price} руб</h1>
+
         <h2>Ваш номер в очереди</h2>
         <h1>${number}</h1>
         <form action="/queue" method="get">

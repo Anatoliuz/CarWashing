@@ -1,5 +1,6 @@
 package com.interview.carwash.dto;
 
+import com.interview.carwash.validation.OperationConstraint;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -13,6 +14,6 @@ public class WashingCreateDto {
 
     @NotEmpty
     @NotNull
-    private List<String> operations;
+    private List<@OperationConstraint String> operations;
 
 }

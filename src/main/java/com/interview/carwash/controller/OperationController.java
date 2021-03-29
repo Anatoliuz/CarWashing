@@ -2,7 +2,11 @@ package com.interview.carwash.controller;
 
 import com.interview.carwash.dto.OperationCreateDto;
 import com.interview.carwash.dto.OperationDto;
+import com.interview.carwash.dto.OperationPriceCreateDto;
+import com.interview.carwash.dto.OperationPriceDto;
+import com.interview.carwash.service.OperationPriceService;
 import com.interview.carwash.service.OperationService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +23,12 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("api/operations")
+@AllArgsConstructor
 public class OperationController {
 
     private final OperationService service;
+    private final OperationPriceService operationPriceService;
     private final ModelMapper mapper;
-
-    public OperationController(OperationService service, ModelMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
-    }
 
     @GetMapping
     public List<OperationDto> list(@RequestParam(defaultValue = "0") int page,
@@ -45,6 +46,16 @@ public class OperationController {
         return mapper.map(
                 operation,
                 OperationDto.class
+        );
+    }
+
+    @PostMapping
+    @RequestMapping("/price")
+    public OperationPriceDto price(@RequestBody @Valid OperationPriceCreateDto body) {
+        var price = operationPriceService.create(body);
+        return mapper.map(
+                price,
+                OperationPriceDto.class
         );
     }
 

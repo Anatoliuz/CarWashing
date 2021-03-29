@@ -22,7 +22,9 @@
             <div>
                 <select multiple id="operations-select">
                     <#list operations as op>
-                        <option onclick="updateSelected()" name="${op.name}">${op.label}</option>
+                        <option onclick="updateSelected()" name="${op.getOperation().name}">${op.getOperation()
+                            .label}       ${op.price} рублей
+                        </option>
                     </#list>
                 </select>
                 <input name="operations" hidden id="hidden-selected-operations">

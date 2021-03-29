@@ -13,4 +13,6 @@ public class WaitingDto {
 
     private int numInQueue;
 
+    private int price;
+
 }
