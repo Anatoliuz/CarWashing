@@ -3,13 +3,17 @@ package com.interview.carwash.controller;
 import com.interview.carwash.aspect.Loggable;
 import com.interview.carwash.dto.WaitingDto;
 import com.interview.carwash.dto.WashingCreateDto;
+import com.interview.carwash.service.MyService;
 import com.interview.carwash.service.OperationPriceService;
 import com.interview.carwash.service.WashingService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +27,7 @@ public class UiController {
 
     private final OperationPriceService operationPriceService;
     private final WashingService washingService;
+    private final MyService myService;
 
     @Loggable
     @GetMapping("/carwashing")
@@ -33,6 +38,14 @@ public class UiController {
         map.put("formatter", DateTimeFormatter.ofPattern("dd/MM/uuuu hh:mm"));
         return new ModelAndView("washing", map);
     }
+
+    @Loggable
+    @PostMapping("/serial")
+    public ResponseEntity<String> serial(@RequestBody Map<String, Object> body) {
+        myService.logObject(body);
+        return new ResponseEntity<String>("OK", HttpStatus.OK);
+    }
+
 
     @PostMapping("/carwashing")
     public ModelAndView post(WashingCreateDto dto) {
