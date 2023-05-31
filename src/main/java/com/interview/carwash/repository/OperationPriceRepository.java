@@ -19,4 +19,6 @@ public interface OperationPriceRepository extends JpaRepository<OperationPrice, 
     )
     List<OperationPrice> findByNamesIn(@Param("names") List<String> names);
 
+//    void setDatabase(String database);
+
 }

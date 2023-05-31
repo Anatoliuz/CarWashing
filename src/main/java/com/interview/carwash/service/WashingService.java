@@ -15,8 +15,8 @@ public interface WashingService {
 
     WaitingDto getWaitingData(Long washingId);
 
-    public List<Washing> getQueue(Long washingId);
+    List<Washing> getQueue(Long washingId);
 
-    public List<Washing> getActualQueue();
+    List<Washing> getActualQueue();
 
 }
