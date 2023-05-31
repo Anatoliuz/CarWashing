@@ -29,12 +29,7 @@ public class OperationPriceServiceImpl implements OperationPriceService {
     @Transactional
     @Override
     public OperationPrice create(OperationPriceCreateDto operationPriceCreateDto) {
-//        log.info(Thread.currentThread().getName());
-
         self.getObject().setArchived(operationPriceCreateDto);
-
-//        log.info("AFTER ARCHIVED: " + Thread.currentThread().getName());
-
         OperationPrice price = new OperationPrice();
         price.setPrice(operationPriceCreateDto.getPrice());
         Operation operation = service.getByName(operationPriceCreateDto.getOperation());
@@ -46,7 +41,6 @@ public class OperationPriceServiceImpl implements OperationPriceService {
 
     @Override
     public List<OperationPrice> getByNames(List<String> names) {
-
         List<OperationPrice> operationPrices = repository.findByNamesIn(names);
         //TODO exc
         if (operationPrices.size() != names.size()) {
@@ -56,7 +50,6 @@ public class OperationPriceServiceImpl implements OperationPriceService {
     }
 
     @ExecuteOnMyPool
-//    @Transactional
     @Override
     public void setArchived(OperationPriceCreateDto operationPriceCreateDto) {
         List<OperationPrice> ops = repository.findByName(operationPriceCreateDto.getOperation());
@@ -66,7 +59,6 @@ public class OperationPriceServiceImpl implements OperationPriceService {
             }
         }
         repository.saveAll(ops);
-//        log.info("REAL ARCHIVED: " + Thread.currentThread().getName());
     }
 
     @Cacheable

@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 import static org.modelmapper.convention.MatchingStrategies.STRICT;
 
-//@EnableAspectJAutoProxy(proxyTargetClass = true)
 @Configuration
 public class AppConfig {
 
