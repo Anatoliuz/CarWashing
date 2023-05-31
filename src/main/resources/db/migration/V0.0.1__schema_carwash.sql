@@ -38,7 +38,9 @@ create table carwash.washing_operation_price
 insert into carwash.operation (name, label, minutes)
 values ('hand_wash', 'Ручная мойка', 10),
        ('wireless_wash', 'Бесконтактная мойка', 15),
-       ('washing_rugs', 'Мойка ковриков', 1)
+       ('washing_rugs', 'Мойка ковриков', 1);
 
-
-
+insert into carwash.operation_price (operation_id, price, create_date_time, is_archived)
+values (1, 2, now(), false),
+       (2, 2, now(), false),
+       (3, 3, now(), false)

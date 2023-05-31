@@ -1,5 +1,6 @@
 package com.interview.carwash.controller;
 
+import com.interview.carwash.aspect.Loggable;
 import com.interview.carwash.dto.WaitingDto;
 import com.interview.carwash.dto.WashingCreateDto;
 import com.interview.carwash.service.OperationPriceService;
@@ -23,6 +24,7 @@ public class UiController {
     private final OperationPriceService operationPriceService;
     private final WashingService washingService;
 
+    @Loggable
     @GetMapping("/carwashing")
     public ModelAndView washing() {
         Map<String, Object> map = new HashMap<>();

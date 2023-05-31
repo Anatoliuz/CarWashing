@@ -1,5 +1,6 @@
 package com.interview.carwash.service;
 
+import com.interview.carwash.aspect.Cacheable;
 import com.interview.carwash.dto.OperationPriceCreateDto;
 import com.interview.carwash.error.OperationNotFound;
 import com.interview.carwash.model.Operation;
@@ -55,6 +56,7 @@ public class OperationPriceServiceImpl implements OperationPriceService {
         repository.saveAll(ops);
     }
 
+    @Cacheable
     @Override
     public List<OperationPrice> getList(Pageable page) {
         return repository.findAll(page)
