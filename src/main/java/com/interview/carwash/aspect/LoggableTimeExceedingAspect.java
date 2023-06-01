@@ -13,9 +13,9 @@ import org.springframework.util.StopWatch;
 @Slf4j
 @Aspect
 @Component
-public class LoggerAspect {
+public class LoggableTimeExceedingAspect {
 
-    @Pointcut("@annotation(Loggable)")
+    @Pointcut("@annotation(com.interview.carwash.aspect.LoggableTimeExceeding)")
     public void loggableMethod() {
     }
 
@@ -30,7 +30,11 @@ public class LoggerAspect {
             return joinPoint.proceed();
         } finally {
             stopWatch.stop();
-            log.info("Execution time for " + className + "." + methodName + " :: " + stopWatch.getTotalTimeMillis() + " ms");
+            if (stopWatch.getTotalTimeMillis() > 50) {
+                log.warn("Execution time exceeded 50 ms for " + className + "." + methodName + " :: " + stopWatch.getTotalTimeMillis() + " ms");
+            }
+            log.info("Execution time is  :: " + stopWatch.getTotalTimeMillis() + " ms");
         }
     }
+
 }

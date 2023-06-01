@@ -1,6 +1,6 @@
 package com.interview.carwash.controller;
 
-import com.interview.carwash.aspect.Loggable;
+import com.interview.carwash.aspect.LoggableTimeExceeding;
 import com.interview.carwash.dto.WaitingDto;
 import com.interview.carwash.dto.WashingCreateDto;
 import com.interview.carwash.service.MyService;
@@ -29,7 +29,7 @@ public class UiController {
     private final WashingService washingService;
     private final MyService myService;
 
-    @Loggable
+    @LoggableTimeExceeding
     @GetMapping("/carwashing")
     public ModelAndView washing() {
         Map<String, Object> map = new HashMap<>();
@@ -39,7 +39,7 @@ public class UiController {
         return new ModelAndView("washing", map);
     }
 
-    @Loggable
+    @LoggableTimeExceeding
     @PostMapping("/serial")
     public ResponseEntity<String> serial(@RequestBody Map<String, Object> body) {
         myService.logObject(body);
