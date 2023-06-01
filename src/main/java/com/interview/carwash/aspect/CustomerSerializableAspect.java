@@ -1,10 +1,7 @@
 package com.interview.carwash.aspect;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.interview.carwash.model.Customer;
-import com.interview.carwash.service.MyService;
-import com.interview.carwash.service.MyServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
