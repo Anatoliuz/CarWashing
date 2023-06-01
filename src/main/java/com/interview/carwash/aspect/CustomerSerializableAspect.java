@@ -1,5 +1,6 @@
 package com.interview.carwash.aspect;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.interview.carwash.model.Customer;
 import com.interview.carwash.service.MyService;
@@ -30,8 +31,7 @@ public class CustomerSerializableAspect {
     @Around("customerSerializable()")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
-
-            Customer customer = objectMapper.convertValue(joinPoint.getArgs()[0], Customer.class    );
+            Customer customer = objectMapper.convertValue(joinPoint.getArgs()[0], Customer.class);
             return joinPoint.proceed(Collections.singletonList(customer).toArray());
         } catch (Throwable throwable) {
             return joinPoint.proceed(joinPoint.getArgs());

@@ -11,7 +11,7 @@ public class MyServiceImpl implements MyService {
 
     @CustomerSerializable
     @Override
-    public void logObject(Object o) {
+    public void serial(Object o) {
         if (Customer.class.isAssignableFrom(o.getClass())) {
             log.info("Customer name: " + ((Customer) o).getName());
             return;

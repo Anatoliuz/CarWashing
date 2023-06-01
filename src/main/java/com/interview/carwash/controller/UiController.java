@@ -1,5 +1,6 @@
 package com.interview.carwash.controller;
 
+import com.interview.carwash.aspect.CustomerSerializable;
 import com.interview.carwash.aspect.LoggableTimeExceeding;
 import com.interview.carwash.dto.WaitingDto;
 import com.interview.carwash.dto.WashingCreateDto;
@@ -39,11 +40,11 @@ public class UiController {
         return new ModelAndView("washing", map);
     }
 
-    @LoggableTimeExceeding
+    @CustomerSerializable
     @PostMapping("/serial")
     public ResponseEntity<String> serial(@RequestBody Map<String, Object> body) {
-        myService.logObject(body);
-        return new ResponseEntity<String>("OK", HttpStatus.OK);
+        myService.serial(body);
+        return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
 

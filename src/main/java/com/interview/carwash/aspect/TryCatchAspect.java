@@ -17,7 +17,7 @@ import java.util.Arrays;
 @Component
 public class TryCatchAspect {
 
-    @AfterThrowing(pointcut="execution(* com.interview.carwash.controller.UiController.post(..))",throwing = "ex")
+    @AfterThrowing(pointcut = "execution(* com.interview.carwash.controller.UiController.post(..))", throwing = "ex")
     public void dtoEx(JoinPoint joinPoint, Throwable ex) {
         Signature signature = joinPoint.getSignature();
         String methodName = signature.getName();
@@ -28,4 +28,5 @@ public class TryCatchAspect {
                 + arguments + "\nand the full toString: " + stuff + "\nthe exception is: "
                 + ex.getMessage());
     }
+
 }
