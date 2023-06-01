@@ -30,7 +30,7 @@ public class LoggableAspect {
         } finally {
             stopWatch.stop();
             if (stopWatch.getTotalTimeMillis() > 50) {
-                log.warn("Execution time exceeded 50 ms for " + className + "." + methodName + " :: " + stopWatch.getTotalTimeMillis() + " ms");
+                log.warn("Execution time exceeded 50 ms for " + className + "." + methodName);
             }
             log.info("Execution time is  :: " + stopWatch.getTotalTimeMillis() + " ms");
         }
