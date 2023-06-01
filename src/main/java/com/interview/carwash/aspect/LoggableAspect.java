@@ -13,9 +13,9 @@ import org.springframework.util.StopWatch;
 @Slf4j
 @Aspect
 @Component
-public class LoggableTimeExceedingAspect {
+public class LoggableAspect {
 
-    @Pointcut("@annotation(com.interview.carwash.aspect.LoggableTimeExceeding)")
+    @Pointcut("@annotation(com.interview.carwash.aspect.Loggable)")
     public void loggableMethod() {
     }
 

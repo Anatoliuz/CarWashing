@@ -15,6 +15,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
+/**
+ * @CustomerSerializable method annotation realization
+ * to convert Map<String, Object> to Json Class
+ */
 @Slf4j
 @Aspect
 @Component

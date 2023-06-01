@@ -12,12 +12,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * Aspect injects log error on controllers' post methods
+ * asking user about dto check
+ */
 @Slf4j
 @Aspect
 @Component
 public class TryCatchAspect {
 
-    @AfterThrowing(pointcut = "execution(* com.interview.carwash.controller.UiController.post(..))", throwing = "ex")
+    @AfterThrowing(pointcut =
+            "execution(* com.interview.carwash.controller.UiController.post(..)) || " +
+            "execution(* com.interview.carwash.controller.OperationController.price(..))" +
+            "execution(* com.interview.carwash.controller.OperationController.post(..))" +
+            "execution(* com.interview.carwash.controller.WashingController.post(..))",
+            throwing = "ex")
     public void dtoEx(JoinPoint joinPoint, Throwable ex) {
         Signature signature = joinPoint.getSignature();
         String methodName = signature.getName();

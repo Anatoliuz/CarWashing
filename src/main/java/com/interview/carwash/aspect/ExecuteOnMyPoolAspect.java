@@ -10,7 +10,10 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
 
-
+/**
+ * @ExecuteOnMyPool annotation implementation
+ * to execute method in user pool
+ */
 @Slf4j
 @Aspect
 @Component

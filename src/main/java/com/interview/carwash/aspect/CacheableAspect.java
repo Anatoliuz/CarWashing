@@ -13,6 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Cacheable impl: method annotation
+ * which saves values in cache to speed up work.
+ * Cache life longevity is not managed.
+ */
 @Slf4j
 @Aspect
 @Component

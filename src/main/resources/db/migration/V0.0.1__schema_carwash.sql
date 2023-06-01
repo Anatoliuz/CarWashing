@@ -41,6 +41,6 @@ values ('hand_wash', 'Ручная мойка', 10),
        ('washing_rugs', 'Мойка ковриков', 1);
 
 insert into carwash.operation_price (operation_id, price, create_date_time, is_archived)
-values (1, 2, now(), false),
-       (2, 2, now(), false),
-       (3, 3, now(), false)
+values (1, 300, now(), false),
+       (2, 400, now(), false),
+       (3, 100, now(), false)
